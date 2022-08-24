@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: emy
+  labels:
+    app: emy
+spec:
+  selector: 
+    app: emy
+  ports:
+    - protocol: 'TCP'
+      port: 443
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emy
+  labels:
+    app: emy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: emy
+  template:
+    metadata:
+      labels:
+        app: emy
+    spec:
+      containers:
+      - image: amirad1/react:9
+        name: emy
+        ports:
+        - containerPort: 443
+        imagePullPolicy: Always
