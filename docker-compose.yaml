@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+    site:
+        build: ./
+        container_name: site
+        image: sito
+        ports:
+         - "443:443"
+         - "80:80"

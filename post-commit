@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "trigger jenkins pipeline"
+
+curl --user amir:amir http://192.168.1.9:8080/job/dockernetess/build?token=gitbuild69

@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+    stages{
+        stage(build){
+            steps{
+                sh '''
+				ssh root@192.168.91.137 << ENDSSH
+                cd /root/docker
+                docker-compose up --build -d
+ENDSSH
+'''
+            }
+        }
+        stage(ImageTest){
+            steps{
+                sh '''
+				ssh root@192.168.91.137 << ENDSSH
+                cd /root/docker
+                bash image-test.sh
+ENDSSH
+'''  
+                
+            }
+        }
+        
+        stage(RunningTest){
+            steps{
+                sh '''
+				ssh root@192.168.91.137 << ENDSSH
+				cd /root/docker
+				bash container-test.sh
+                
+ENDSSH
+'''
+            }
+        }
+        
+        stage(push){
+            steps{
+                sh '''
+				ssh root@192.168.91.137 << ENDSSH
+                docker push amirad1/react:9
+ENDSSH
+'''   
+            }
+        }
+        stage(deploy){
+            steps{
+                sh '''
+				ssh root@192.168.91.133 << ENDSSH
+                cd 
+                kubectl apply -f dep.yaml
+                kubectl rollout restart deployment emy
+ENDSSH
+'''
+            }
+        }
+    }
+}

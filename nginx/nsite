@@ -1,0 +1,27 @@
+<html>
+<body>
+
+<h1>
+
+"hello there"
+
+</h1>
+
+<img src="nic.jpg">
+
+<form action="upload.php" method="post" enctype="multipart/form-data">
+  Select image to upload:
+  <input type="file" name="fileToUpload" id="fileToUpload">
+  <input type="submit" value="Upload Image" name="submit">
+
+</form>
+
+<form action="/video/anal.html">
+    <input type="submit" value="Go to Google" />
+</form>
+
+
+
+
+</body>
+</html>
